@@ -1,0 +1,10 @@
+# Use the full, absolute path to your dataset's main folder
+path: C:\Users\Lenovo\Desktop\work_d\Laptop-Dataset
+
+# These paths are now relative to the 'path' above
+train: train/images
+val: val/images
+
+# Class info
+nc: 1
+names: ['laptop']

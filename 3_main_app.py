@@ -75,11 +75,15 @@ try:
             if RTSP_URL == 0: break
             time.sleep(2); continue
 
+        
         # --- STEP 1: Detections using Dual Models ---
+        
         person_boxes = []
         all_screen_detections = []
 
+        
         # A. Get person and screen detections from the general model
+        
         general_results = general_model(frame, stream=True, verbose=False, classes=[0, 63, 67])
         for r in general_results:
             for box in r.boxes:
@@ -90,16 +94,20 @@ try:
                         person_boxes.append((x1, y1, x2, y2))
                     else:
                         all_screen_detections.append((x1, y1, x2, y2))
+                        
         
         # B. Get additional screen detections from your custom model
+        
         custom_results = custom_device_model(frame, stream=True, verbose=False)
         for r in custom_results:
             for box in r.boxes:
                 if box.conf[0] > CONFIDENCE_THRESHOLD:
                     x1, y1, x2, y2 = map(int, box.xyxy[0])
                     all_screen_detections.append((x1, y1, x2, y2))
+                    
         
         # C. Merge overlapping screen boxes using Non-Maximum Suppression (NMS)
+        
         if all_screen_detections:
             boxes_np = np.array(all_screen_detections)
             # Create dummy scores as NMSBoxes requires scores

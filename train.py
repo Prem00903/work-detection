@@ -1,7 +1,4 @@
 from ultralytics import YOLO
-
-# Load a pre-trained YOLOv8 model to start from
-# Using yolov8s.pt (small) is a good balance of speed and accuracy
 model = YOLO('yolov8s.pt')
 
 # Train the model on your custom dataset
